@@ -1,6 +1,9 @@
 package com.example.duan_1.fragment;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -105,7 +108,9 @@ public class Fragment_Sp_ChiTiet extends Fragment {
         idsanpham = bundle.getInt("idsanpham");
 
         tv_Chitiet_tensp.setText(tenchitiet);
-        Glide.with(getActivity().getApplicationContext()).load(hinhanhchitiet).error(R.drawable.erro).into(img_Chitiet_sp);
+        byte[] bytes = Base64.decode(hinhanhchitiet,Base64.DEFAULT) ;
+        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+        Glide.with(getActivity().getApplicationContext()).load(bitmap).error(R.drawable.erro).into(img_Chitiet_sp);
         img_Chitiet_sp.setScaleType(ImageView.ScaleType.FIT_XY);
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         tv_Chitiet_giasp.setText(decimalFormat.format(giachitiet) + "đ");

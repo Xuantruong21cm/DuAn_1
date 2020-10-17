@@ -1,6 +1,9 @@
 package com.example.duan_1.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +50,9 @@ public class Adapter_Meat extends  RecyclerView.Adapter<Adapter_Meat.MyViewHolde
 
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         holder.tv_giasp_pork.setText("Giá : "+decimalFormat.format(sanPham.getGiasanpham())+" Đ");
-        Glide.with(context).load(sanPham.getHinhanhsanpham()).into(holder.img_hinhsp_pork);
+        byte[] bytes = Base64.decode(sanPham.getHinhanhsanpham(),Base64.DEFAULT) ;
+        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length) ;
+        Glide.with(context).load(bitmap).placeholder(null).into(holder.img_hinhsp_pork);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
